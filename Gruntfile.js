@@ -9,6 +9,23 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'css/',
+          src: ['*.css', '!*.min.css'],
+          dest: 'css-min/',
+          ext: '.min.css'
+        },{
+          expand: true,
+          cwd: 'views/css/',
+          src: ['*.css', '!*.min.css'],
+          dest: 'views/css-min/',
+          ext: '.min.css'
+        }]
+      }
+    },
     responsive_images: {
       dev: {
         options: {
@@ -53,7 +70,7 @@ module.exports = function(grunt) {
     /* Clear out the images directory if it exists */
     clean: {
       dev: {
-        src: ['images_fix','views/images_fix'],
+        src: ['images_fix','views/images_fix','css-min','views/css-min'],
       },
     },
 
@@ -62,7 +79,7 @@ module.exports = function(grunt) {
     mkdir: {
       dev: {
         options: {
-          create: ['images_fix','views/images_fix']
+          create: ['images_fix','views/images_fix','css-min','views/css-min']
         },
       }
     },
@@ -82,10 +99,10 @@ module.exports = function(grunt) {
       },
     },
   });
-
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mkdir');
-  grunt.registerTask('default', ['mkdir', 'copy', 'responsive_images']);
+  grunt.registerTask('default', ['mkdir', 'copy', 'responsive_images', 'cssmin']);
 
 };
