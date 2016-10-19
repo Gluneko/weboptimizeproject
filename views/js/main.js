@@ -403,16 +403,17 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
+  var pizzaSizeDom = document.querySelector('#pizzaSize');
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        pizzaSizeDom.innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        pizzaSizeDom.innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        pizzaSizeDom.innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -438,7 +439,7 @@ var resizePizzas = function(size) {
        console.log("error in size selection");
        break;
     }
-    var randomPizzaContainer = document.querySelectorAll(".randomPizzaContainer");
+    var randomPizzaContainer = document.getElementsByClassName(".randomPizzaContainer");
     for (var i = 0; i < randomPizzaContainer.length; i++) {
       //var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
       var newwidth = newwidth + "%";
@@ -519,7 +520,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 30; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -532,5 +533,5 @@ document.addEventListener('DOMContentLoaded', function() {
   //requestAnimationFrame(updatePositions());
   // no need for update postions at the beginning as we only need only default
   //need to change only on scroll event;
-  //updatePositions();
+  updatePositions();
 });
