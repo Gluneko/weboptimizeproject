@@ -63,7 +63,7 @@ had to set the original left position of each element becuase without it transla
 Index.html
 used web font loader
 This prevents the font from Google from blocking page rendering
-Changed GA script tag to defer and placed script utilizing GA at end of page
+Changed GA script tag to defer ( is relied upon by another script which is at the bottom page so it will be executed when they appear in the document) placed script utilizing GA at end of page
 Made all CSS Inline
 Optimized all images
 used ImageMagick and grunt to automate  resizing of all images.
