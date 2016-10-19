@@ -492,8 +492,9 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
   var scroll=document.body.scrollTop / 1250;
-  //console.log(scroll);
   var items = document.querySelectorAll('.mover');
+
+  //console.log(scroll);
   var phase = [];
   for (var i = 0; i < 5; i++) {
     phase[i]=Math.sin(scroll + i);
