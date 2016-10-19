@@ -441,7 +441,6 @@ var resizePizzas = function(size) {
     }
     var randomPizzaContainer = document.getElementsByClassName(".randomPizzaContainer");
     for (var i = 0; i < randomPizzaContainer.length; i++) {
-      //var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
       var newwidth = newwidth + "%";
       randomPizzaContainer[i].style.width = newwidth;
     }
@@ -497,11 +496,11 @@ function updatePositions() {
   //console.log(scroll);
   var phase = [];
   for (var i = 0; i < 5; i++) {
-    phase[i]=Math.sin(scroll + i);
+    phase[i]= 100 * Math.sin(scroll + i);
   }
   for (var i = 0; i < items.length; i++) {
     //var phase = Math.sin(scroll + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase[i % 5] + 'px';
+    items[i].style.transform = "translateX("+ phase[i % 5] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -532,6 +531,8 @@ window.addEventListener('scroll', function(e){
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  var movpizza = document.querySelector("#movingPizzas1");
+
   for (var i = 0; i < 30; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
@@ -539,8 +540,9 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
+    elem.style.left = elem.basicLeft + "px";
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    movpizza.appendChild(elem);
   }
   //requestAnimationFrame(updatePositions());
   // no need for update postions at the beginning as we only need only default
