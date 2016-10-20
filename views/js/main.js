@@ -403,17 +403,17 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
-  var pizzaSizeDom = document.querySelector('#pizzaSize');
   function changeSliderLabel(size) {
+    var pizzaSize = document.getElementById("pizzaSize");
     switch(size) {
       case "1":
-        pizzaSizeDom.innerHTML = "Small";
+        pizzaSize.innerHTML = "Small";
         return;
       case "2":
-        pizzaSizeDom.innerHTML = "Medium";
+        pizzaSize.innerHTML = "Medium";
         return;
       case "3":
-        pizzaSizeDom.innerHTML = "Large";
+        pizzaSize.innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -422,26 +422,26 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
+   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
    // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    var newwidth;
-    switch (size) {
+    var newwidth = 0;
+    switch(size) {
       case "1":
-       newwidth = 25;
-       break;
+        newwidth = 25 + "%";
+        break;
       case "2":
-       newwidth = 33;
-       break;
+        newwidth = 33 + "%";
+        break;
       case "3":
-       newwidth = 50;
-       break;
+        newwidth = 50 + "%";
+        break;
       default:
-       console.log("error in size selection");
-       break;
-    }
-    var randomPizzaContainer = document.getElementsByClassName(".randomPizzaContainer");
+        console.log("bug in sizeSwitcher");
+        break;
+      }
+    var randomPizzaContainer = document.getElementsByClassName("randomPizzaContainer");
     for (var i = 0; i < randomPizzaContainer.length; i++) {
-      var newwidth = newwidth + "%";
       randomPizzaContainer[i].style.width = newwidth;
     }
   }
@@ -458,8 +458,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+var pizzasDiv = document.getElementById("randomPizzas");
+for (var i = 2; i < 50; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -490,16 +490,13 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-  //var scroll=document.body.scrollTop / 1250;
-  var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName('mover');
   var scr =scroll / 1250;
-  //console.log(scroll);
   var phase = [];
   for (var i = 0; i < 5; i++) {
-    phase[i]= 100 * Math.sin(scroll + i);
+    phase[i]= 100 * Math.sin(scr + i);
   }
   for (var i = 0; i < items.length; i++) {
-    //var phase = Math.sin(scroll + (i % 5));
     items[i].style.transform = "translateX("+ phase[i % 5] + 'px';
   }
 
@@ -526,14 +523,14 @@ window.addEventListener('scroll', function(e){
     }
     ticking = true;
 });
-
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  var movpizza = document.querySelector("#movingPizzas1");
-
-  for (var i = 0; i < 30; i++) {
+  var movpizza = document.getElementById("movingPizzas1");
+  //get the no of pizzas according to screen height
+  var no_of_rows = Math.round(window.screen.height / s + 1);
+  for (var i = 0; i < no_of_rows * cols; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -544,8 +541,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     movpizza.appendChild(elem);
   }
-  //requestAnimationFrame(updatePositions());
-  // no need for update postions at the beginning as we only need only default
-  //need to change only on scroll event;
   updatePositions();
 });

@@ -29,10 +29,12 @@ made a reference to randomPizzaContainer and utilized that instead of querying t
 Removed Dx and instead used switch statements that returns percentage width required according to changes in size sliding bar.
 This avoid calculating pixel values again and again.
 Removed determinDX function as it was rather pointless.
+Replaced document.querySelector with document.getElementsByClassName
 
 3.UpdatePositions()
 
-pulled document.body reference and calculation out of for loop and used window.scrollY / 1250 as const
+Replaced document.querySelector with document.getElementsByClassName
+pulled document.body reference  and calculation out of for loop
 made phase for sin wave an array to do 5 calculations once and then reference in for loop.
 
 scroll event listener
@@ -54,9 +56,9 @@ window.addEventListener('scroll', function(e) {
   ticking = true;
 });
 
-
+Reduced no of pizza divisions from 100 to 50 and pulled document.getElementById out of the for loop.
 DOM Content Loaded
-reduced pizzas from 200 to 30
+reduced pizzas from 200 to a dynamically calculated value using window.screen.height to get no of pizza rows
 pulled querySelector out of for loop
 had to set the original left position of each element becuase without it translateX will translate from 0 px and will range only from 0 to 100 because of sine function
 
